@@ -1,0 +1,28 @@
+<div class="inputs">
+  <form>
+    <input placeholder="Enter the business" [(ngModel)]="business" name="businessname" required><br><br>
+    <input placeholder="Enter the location" [(ngModel)]="businessLoc" name="businessloc" required>   *<br>
+    <span class="error" *ngIf="error">{{error}}</span><br><br>
+    <button mat-raised-button style="background-color:#d56951 !important;" (click)="getReviews($event)">Yelp reviews</button>
+  </form>
+</div><br>
+<div class="reviews">
+  <h3 *ngIf="reviewResponse.reviews.length > 0">See what customers says...</h3>
+  <div class="reviewslist" *ngFor="let review of reviewResponse.reviews">
+    <mat-card class="example-card">
+      <mat-card-title-group>
+        <mat-card-title>{{review.user.name}}</mat-card-title>
+        <mat-card-subtitle class="rating">
+          <ngb-rating *ngIf="review.rating" [max]="5" [rate]="review.rating" [readonly]="true"></ngb-rating>
+          <p class="date">{{review.time_created.slice(0, 10)}}</p>
+        </mat-card-subtitle>
+        <img mat-card-md-image *ngIf="review.user.image_url" src="{{review.user.image_url}}">
+        <img mat-card-md-image *ngIf="!review.user.image_url" src="{{defaultProfileImage}}">
+
+      </mat-card-title-group>
+      <mat-card-content>
+        {{review.text}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

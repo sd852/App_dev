@@ -1,0 +1,73 @@
+<div class="weatherbody">
+    <div class="inputs">
+        <form>
+            <input type="text" matInput maxlength="5" minlength="5" placeholder="Enter Zip Code" [(ngModel)]="zip"
+                [ngModelOptions]="{standalone: true}"><br>
+            <span class="error" *ngIf="zipError">{{error}}</span>
+            <br>
+        </form>
+        <div>
+            <button mat-raised-button class="ga-width-100-per" style="background-color:#d56951 !important;"
+                (click)="loadWeatherForeCast($event,'weather')">
+                Get Current Weather
+            </button>
+        </div><br>
+        <div><button class="ga-width-100-per" mat-raised-button style="background-color:#d56951 !important;"
+                (click)="loadWeatherForeCast($event,'forecast')">
+                Get 3 day forecast
+            </button>
+        </div>
+    </div>
+    <div class="results">
+        <mat-card class="card" *ngIf="showCurrent">
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item> <strong class="labels">City</strong> : {{weatherData?.name}}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item> <strong class="labels"> Temparature</strong> : {{weatherData?.main.temp}}F
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item> <strong class="labels">Minimum Temperature</strong> :
+                        {{weatherData?.main.temp_min}}F
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item> <strong class="labels">Maximum Temperature</strong> :
+                        {{weatherData?.main.temp_max}}F
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item> <strong class="labels">Description</strong> :
+                        {{weatherData?.weather[0].description}}<span>
+                            <img src="http://openweathermap.org/img/w/{{weatherData?.weather[0].icon}}.png"
+                                alt="Site Logo" width="50" height="50">
+                        </span>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card class="ga-forecast-card" *ngIf="showForecast">
+            <div>
+                <h2> Three day forecast in {{forecastData.name}} </h2>
+            </div>
+            <mat-tab-group color="primary">
+                <div *ngFor="let forecast of forecastData.details,let i=index">
+                    <mat-tab label="{{forecast.date | date : 'mediumDate'}}">
+                        <mat-list>
+                            <mat-list-item> Minimum Temperature : {{forecast.minTemperature}}F
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item> Maximum Temperature : {{forecast.maxTemperature}}F
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item> Description : {{forecast.description}}<span>
+                                    <img src="http://openweathermap.org/img/w/{{forecast.icon}}.png" alt="Site Logo"
+                                        width="50" height="50">
+                                </span> </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                </div>
+            </mat-tab-group>
+        </mat-card>
+    </div>
+</div>

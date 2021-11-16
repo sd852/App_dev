@@ -1,0 +1,12 @@
+mat-toolbar{
+    font-weight: bolder;
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+    display: inline-block;
+    background-color: #d56951 !important;
+}
+
+.container{
+    padding: 10px;
+}
